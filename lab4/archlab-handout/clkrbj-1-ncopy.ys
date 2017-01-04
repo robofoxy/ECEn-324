@@ -26,25 +26,25 @@ ncopy:	pushl %ebp						# Save old frame pointer
 
 
 Loop1:	mrmovl 0(%ebx), %esi					# read val from (src + 0)...
+	mrmovl 4(%ebx), %esi					# read val from (src + 1)... 
 	rmmovl %esi, 0(%ecx)					# ...and store it to (dst + 0
 	andl %esi, %esi						# val > 0?
 	jg Pos1							# if so, goto Pos1:
 	iaddl $-1, %eax						# execute when val<=0, count--
 
-Pos1:	mrmovl 4(%ebx), %esi					# read val from (src + 1)...
-	rmmovl %esi, 4(%ecx)					# ...and store it to (dst + 1
+Pos1:	rmmovl %esi, 4(%ecx)					# ...and store it to (dst + 1
 	andl %esi, %esi						# val > 0?
 	jg Pos2							# if so, goto Pos2:
 	iaddl $-1, %eax						# execute when val<=0, count--
 
 Pos2:	mrmovl 8(%ebx), %esi					# read val from (src + 2)...
+	mrmovl 12(%ebx), %esi					# read val from (src + 3)...
 	rmmovl %esi, 8(%ecx)					# ...and store it to (dst + 2
 	andl %esi, %esi						# val > 0?
 	jg Pos3							# if so, goto Pos3:
 	iaddl $-1, %eax						# execute when val<=0, count--
 
-Pos3:	mrmovl 12(%ebx), %esi					# read val from (src + 3)...
-	rmmovl %esi, 12(%ecx)					# ...and store it to (dst + 3
+Pos3:	rmmovl %esi, 12(%ecx)					# ...and store it to (dst + 3
 	andl %esi, %esi						# val > 0?
 	jg Pos4							# if so, goto Pos4:
 	iaddl $-1, %eax						# execute when val<=0, count--
